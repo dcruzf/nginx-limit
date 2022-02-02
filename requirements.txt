@@ -1,0 +1,10 @@
+fastapi
+flake8-bugbear
+black
+isort
+autoflake
+mypy
+pytest
+pytest-asyncio
+httpx
+uvicorn

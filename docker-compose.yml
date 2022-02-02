@@ -1,8 +1,24 @@
 services:
+  fastapi:
+    build: .
+    entrypoint: uvicorn main:app --host '0.0.0.0' --port 8000
+    volumes:
+     - ./app:/code
+    expose:
+       - 8000
+    networks:
+      - nginx_network
   nginx:
     image: nginx:alpine
     ports:
-      - "8080:80"
+      - "80:80"
     volumes:
-      - ./static:/static
       - ./conf.d:/etc/nginx/conf.d
+    depends_on:
+      - fastapi
+    networks:
+      - nginx_network
+  
+networks:
+  nginx_network:
+    driver: bridge

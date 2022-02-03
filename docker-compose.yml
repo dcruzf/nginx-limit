@@ -1,24 +1,17 @@
 services:
-  fastapi:
+  web:
     build: .
-    entrypoint: uvicorn main:app --host '0.0.0.0' --port 8000
+    entrypoint: gunicorn -b unix:/tmp/gunicorn.sock -k uvicorn.workers.UvicornWorker --log-level warning main:app
     volumes:
      - ./app:/code
-    expose:
-       - 8000
-    networks:
-      - nginx_network
+     - ./socket/:/tmp/
   nginx:
     image: nginx:alpine
     ports:
       - "80:80"
     volumes:
       - ./conf.d:/etc/nginx/conf.d
+      - ./socket/:/tmp/
     depends_on:
-      - fastapi
-    networks:
-      - nginx_network
+      - web
   
-networks:
-  nginx_network:
-    driver: bridge

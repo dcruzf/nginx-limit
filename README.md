@@ -4,13 +4,15 @@ This repository includes some NGINX configuration of rate limiting for _FastAPI_
 
 ## Discursion
 
-If anyone can use your API as much as they want, then you can have overloaded servers by
-abusive rapid requests, or even suffer a brute-force attack.
-
-There are many reasons to limit the rate of request, one being security.
-But maybe you need to protect your APIs from inadvertent overuse. Without rate
-limiting, each user may make a request as often as they like,
+If anyone can use your API as much as they want, you can have overloaded servers by
+abusive rapid requests. Maybe you need to protect your APIs from inadvertent overuse. Without
+rate limiting, each user may make a request as often as they like,
 leading to “spikes” of requests that starve other consumers.
+
+There are many reasons to limit the rate of request, one being security. Rate limiting
+allows you to limit the number of attempts a user or bot can make in a period.
+It can be an effective countermeasure for brute-force login attempts,
+DDoS attacks, and so on.
 
 **Rate limit** allows you to limit the number of requests that a user can make in a
 given period. It protects your API from inadvertent or malicious
